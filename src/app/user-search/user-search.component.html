@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="col-xs-12">
+    <form [formGroup]="searchForm">
+      <div class="form-group">
+        <label for="userSearch">Search for Users by Email: </label>
+        <input type="search" class="form-control" name="user-search" formControlName="userSearch" (ngModel)="searchedUsers" (ngModelChange)="onUsersSearchChange()">
+      </div>
+    </form>
+      <h2>Results</h2>
+      <div class="list-group">
+        <app-user-list-item
+          *ngFor="let user of searchedUsers"
+          [user]="user">
+        </app-user-list-item>
+      </div>
+  </div>
+</div>
