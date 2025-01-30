@@ -1,86 +1,150 @@
-<div class="row">
-	<div class="col-sm-8 col-sm-offset-2">
-		<h2>Add a new User</h2>
-		<form [formGroup]="userForm" (ngSubmit)="onSaveUser()">
-			<div class="form-group">
-				<label for="firstName">First Name*</label>
-				<input type="text" class="form-control" id="firstName" formControlName="firstName">
+<mat-card class="user-form-card">
+	<mat-card-title class="form-title">
+		👤 Add a New User
+	</mat-card-title>
+
+	<mat-divider></mat-divider>
+
+	<form [formGroup]="userForm" (ngSubmit)="onSaveUser()">
+		<!-- First Name -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>First Name</mat-label>
+			<mat-icon matPrefix>person</mat-icon>
+			<input matInput id="firstName" type="text" formControlName="firstName">
+			<mat-error *ngIf="userForm.get('firstName').hasError('required')">
+				First name is required
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Last Name -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Last Name</mat-label>
+			<mat-icon matPrefix>person</mat-icon>
+			<input matInput type="text" id="lastName" formControlName="lastName">
+			<mat-error *ngIf="userForm.get('lastName').hasError('required')">
+				Last name is required
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Gender -->
+		<mat-label>Gender</mat-label>
+		<mat-radio-group formControlName="gender" class="gender-group">
+			<mat-radio-button id="genderM" value="M">Male</mat-radio-button>
+			<mat-radio-button id="genderF" value="F">Female</mat-radio-button>
+			<mat-radio-button id="genderO" value="Other">Other</mat-radio-button>
+		</mat-radio-group>
+		<mat-error *ngIf="userForm.get('gender').hasError('required')">
+			Please select a gender
+		</mat-error>
+
+		<!-- Email -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Email</mat-label>
+			<mat-icon matPrefix>email</mat-icon>
+			<input matInput id="email" type="email" formControlName="email">
+			<mat-error *ngIf="userForm.get('email').hasError('required')">
+				Email is required
+			</mat-error>
+			<mat-error *ngIf="userForm.get('email').hasError('email')">
+				Invalid email format
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Password -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Password</mat-label>
+			<mat-icon matPrefix>lock</mat-icon>
+			<input matInput id="password" type="password" formControlName="password">
+			<mat-error *ngIf="userForm.get('password').hasError('required')">
+				Password is required
+			</mat-error>
+		</mat-form-field>
+
+		<!-- Birthday -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Birthday</mat-label>
+			<mat-icon matPrefix>cake</mat-icon>
+			<input matInput id="birthday" type="date" formControlName="birthday">
+		</mat-form-field>
+
+		<!-- Telephone -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Telephone</mat-label>
+			<mat-icon matPrefix>phone</mat-icon>
+			<input matInput id="telephone" type="tel" formControlName="telephone">
+		</mat-form-field>
+
+		<!-- Country -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Country</mat-label>
+			<mat-icon matPrefix>public</mat-icon>
+			<mat-select id="country" formControlName="country">
+				<mat-option value="France">France</mat-option>
+				<mat-option value="USA">USA</mat-option>
+				<mat-option value="Germany">Germany</mat-option>
+				<mat-option value="Canada">Canada</mat-option>
+				<mat-option value="Japan">Japan</mat-option>
+				<mat-option value="Lebanon">Lebanon</mat-option>
+				<mat-option value="Algeria">Algeria</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<!-- Bio -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Bio</mat-label>
+			<mat-icon matPrefix>edit</mat-icon>
+			<textarea id="bio" matInput rows="3" formControlName="bio"></textarea>
+		</mat-form-field>
+
+		<!-- Favorite Number -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Favorite Number</mat-label>
+			<mat-icon matPrefix>calculate</mat-icon>
+			<input matInput id="favoriteNumber" type="number" formControlName="favoriteNumber">
+		</mat-form-field>
+
+		<!-- Favorite Color -->
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Favorite Color</mat-label>
+			<mat-icon matPrefix>palette</mat-icon>
+			<input matInput id="favoriteColor" type="color" formControlName="favoriteColor">
+		</mat-form-field>
+
+		<!-- Agreement Level (Fixed Spacing & Improved Styling) -->
+		<mat-card class="toggle-container">
+			<mat-label>🤖 Do you think the machine will swallow us all one day?</mat-label>
+			<div class="toggle-button-container">
+				<mat-button-toggle-group formControlName="agreementLevel">
+					<mat-button-toggle *ngFor="let level of agreementLevels" [value]="level">
+						{{ level }}%
+					</mat-button-toggle>
+				</mat-button-toggle-group>
 			</div>
-			<div class="form-group">
-				<label for="lastName">Last Name*</label>
-				<input type="text" class="form-control" id="lastName" formControlName="lastName">
+			<mat-progress-bar mode="determinate" [value]="userForm.get('agreementLevel')?.value"></mat-progress-bar>
+			<p class="toggle-value">Current Level: {{ userForm.get('agreementLevel')?.value }}%</p>
+		</mat-card>
+
+		<!-- Avatar Upload (Circular Preview) -->
+		<mat-card class="file-upload">
+			<mat-label>Upload Avatar</mat-label>
+			<input id="avatarImage" type="file" (change)="onFileSelected($event)">
+			<div class="avatar-preview" *ngIf="avatarPreview">
+				<img [src]="avatarPreview" alt="Avatar Preview">
 			</div>
-			<div class="form-group">
-				<label>Gender*</label><br>
-				<div class="radio-inline">
-					<input type="radio" class="form-check-input" id="gender1" name="gender" formControlName="gender" value="M">
-					<label for="gender1" class="form-check-label">M</label>
-				</div>
-				<div class="radio-inline">
-					<input type="radio" class="form-check-input" id="gender2" name="gender" formControlName="gender" value="F">
-					<label for="gender2" class="form-check-label">F</label>
-				</div>
-				<div class="radio-inline">
-					<input type="radio" class="form-check-input" id="gender3" name="gender" formControlName="gender" value="Other">
-					<label for="gender3" class="form-check-label">Other</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="email">Email*</label>
-				<input type="email" class="form-control" id="email" formControlName="email">
-			</div>
-			<div class="form-group">
-				<label for="password">Password*</label>
-				<input type="password" class="form-control" id="password" formControlName="password">
-			</div>
-			<div class="form-group">
-				<label for="birthday">Birthday*</label>
-				<input type="date" class="form-control" id="birthday" formControlName="birthday">
-			</div>
-			<div class="form-group">
-				<label for="telephone">Telephone*</label>
-				<input type="tel" class="form-control" id="telephone" formControlName="telephone">
-			</div>
-			<div class="form-group">
-				<label for="country">Country*</label>
-				<select class="form-control" id="country" formControlName="country">
-					<option value="France">France</option>
-					<option value="USA">USA</option>
-					<option value="Germany">Germany</option>
-					<option value="Canada">Canada</option>
-					<option value="Japan">Japan</option>
-					<option value="Lebanon">Lebanon</option>
-					<option value="Algeria">Algeria</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="bio">Bio</label>
-				<textarea class="form-control" id="bio" formControlName="bio" placeholder="Studies, Hobbies, etc."></textarea>
-			</div>
-			<div class="form-group">
-				<label for="favoriteNumber">Favorite Number</label>
-				<input type="number" class="form-control" id="favoriteNumber" formControlName="favoriteNumber">
-			</div>
-			<div class="form-group">
-				<label for="favoriteColor">Favorite Color</label>
-				<input type="color" class="form-control" id="favoriteColor" formControlName="favoriteColor">
-			</div>
-			<div class="form-group">
-				<p>Do you think the machine will swallow us all one day? </p>
-				<input type="range" class="form-control" id="agreementLevel" formControlName="agreementLevel" step="20">
-			</div>
-			<div class="form-group">
-				<label for="avatarImage">Upload an avatar image</label>
-				<input type="file" class="form-control" id="avatarImage" formControlName="avatarImage">
-			</div>
-			<div class="form-group">
-				<div class="checkbox-inline">
-					<input type="checkbox" class="form-check-input" id="newsletter" name="newsletter" formControlName="newsletter">
-					<label for="newsletter" class="form-check-label">Subscribe to Newsletter</label>
-				</div>
-			</div>
-			<button class="btn btn-success" type="submit" [disabled]="userForm.invalid">Create User
+		</mat-card>
+
+		<!-- Newsletter Subscription (More Organized) -->
+		<mat-card class="newsletter-container">
+			<mat-checkbox id="newsletter" formControlName="newsletter">
+				📩 Subscribe to Newsletter
+			</mat-checkbox>
+		</mat-card>
+
+		<!-- Submit Button -->
+		<div class="button-container">
+			<button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">
+				<mat-icon>person_add</mat-icon> Create User
 			</button>
-		</form>
-	</div>
-</div>
+		</div>
+	</form>
+</mat-card>

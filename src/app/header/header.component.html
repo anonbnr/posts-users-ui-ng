@@ -1,24 +1,13 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li routerLinkActive="active">
-                <a routerLink="posts">Posts</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="new-post">Add a New Post</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="users">Users</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="new-user">Add a New User</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="user-search">Search Users</a>
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="date-time-form">DateTime Form</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<mat-toolbar color="primary">
+    <mat-icon>menu</mat-icon>
+    <span>NG Posts & Users</span>
+
+    <span class="spacer"></span>
+
+    <button mat-button [routerLink]="'/posts'">Posts</button>
+    <button mat-button [routerLink]="'/new-post'">Add a New Post</button>
+    <button mat-button [routerLink]="'/users'">Users</button>
+    <button mat-button [routerLink]="'/new-user'">Add a New User</button>
+    <button mat-button [routerLink]="'/user-search'">Search Users</button>
+    <button mat-button [routerLink]="'/user-availability-schedule'">Schedule Availability</button>
+</mat-toolbar>

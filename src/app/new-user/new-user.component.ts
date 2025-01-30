@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-user',
@@ -11,7 +11,9 @@ import { UserService } from '../services/user.service';
 })
 export class NewUserComponent implements OnInit {
 
-  userForm: FormGroup;
+  userForm!: FormGroup;
+  agreementLevels: number[] = [0, 20, 40, 60, 80, 100];  // Predefined levels
+  avatarPreview: string | null = null;  // Avatar preview image
 
   constructor(
     private userService: UserService,
@@ -23,7 +25,7 @@ export class NewUserComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.userForm = this.formBuilder.group({
       'firstName': ['', Validators.required],
       'lastName': ['', Validators.required],
@@ -36,31 +38,46 @@ export class NewUserComponent implements OnInit {
       'bio': '',
       'favoriteNumber': '',
       'favoriteColor': '',
-      'agreementLevel': '',
+      'agreementLevel': new FormControl(50),
       'avatarImage': '',
-      'newsletter': ''
+      'newsletter': false
     });
   }
 
-  onSaveUser(){
-    this.userService.addUser(new User(
-      this.userForm.get('firstName').value,
-      this.userForm.get('lastName').value,
-      this.userForm.get('gender').value,
-      this.userForm.get('email').value,
-      this.userForm.get('password').value,
-      new Date(this.userForm.get('birthday').value),
-      this.userForm.get('telephone').value,
-      this.userForm.get('country').value,
-      this.userForm.get('bio').value,
-      this.userForm.get('favoriteNumber').value,
-      this.userForm.get('favoriteColor').value,
-      this.userForm.get('avatarImage').value,
-      this.userForm.get('agreementLevel').value,
-      this.userForm.get('newsletter').value
-    ));
+  onSaveUser() {
+    const newUser = new User(
+      this.userForm.value.firstName,
+      this.userForm.value.lastName,
+      this.userForm.value.gender,
+      this.userForm.value.email,
+      this.userForm.value.password,
+      new Date(this.userForm.value.birthday),
+      this.userForm.value.telephone,
+      this.userForm.value.country,
+      this.userForm.value.bio,
+      this.userForm.value.favoriteNumber,
+      this.userForm.value.favoriteColor,
+      this.avatarPreview, // Pass avatar preview
+      this.userForm.value.agreementLevel,
+      this.userForm.value.newsletter
+    );
 
+    this.userService.addUser(newUser);
+
+    // Navigate to the users page
     this.router.navigate(['/users']);
+  }
+
+  // Handle file selection and preview
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.avatarPreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
 }

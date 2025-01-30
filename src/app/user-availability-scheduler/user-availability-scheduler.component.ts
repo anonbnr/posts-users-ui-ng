@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-date-time-form',
-  templateUrl: './date-time-form.component.html',
-  styleUrls: ['./date-time-form.component.css']
+  templateUrl: './user-availability-scheduler.component.html',
+  styleUrls: ['./user-availability-scheduler.component.css']
 })
-export class DateTimeFormComponent implements OnInit {
+export class UserAvailabilitySchedulerComponent implements OnInit {
 
   dateTimeForm: FormGroup
   dateTime: string;
   time: string;
   month: string;
   week: string;
+  availabilitySaved = false;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -34,6 +36,12 @@ export class DateTimeFormComponent implements OnInit {
     this.time = this.dateTimeForm.get('time').value;
     this.month = this.dateTimeForm.get('month').value;
     this.week = this.dateTimeForm.get('week').value;
+    this.availabilitySaved = true;
   }
 
+  closeDatepicker(datepicker: MatDatepicker<any>) {
+    if (datepicker) {
+      datepicker["_destroyOverlay"]();
+    }
+  }
 }

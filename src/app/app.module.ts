@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Route, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PostListComponent } from './post-list/post-list.component';
-import { PostListItemComponent } from './post-list-item/post-list-item.component';
 import { HeaderComponent } from './header/header.component';
 import { NewPostComponent } from './new-post/new-post.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserListItemComponent } from './user-list-item/user-list-item.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { PostListItemComponent } from './post-list-item/post-list-item.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { UserAvailabilitySchedulerComponent } from './user-availability-scheduler/user-availability-scheduler.component';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
+import { UserListComponent } from './user-list/user-list.component';
 import { UserSearchComponent } from './user-search/user-search.component';
-import { DateTimeFormComponent } from './date-time-form/date-time-form.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from './modules/material.module';
 import { PostService } from './services/post.service';
 import { UserService } from './services/user.service';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
-const appRoutes: Route[] = [
+const appRoutes: Routes = [
   {
     path: 'posts',
     component: PostListComponent
@@ -31,6 +33,7 @@ const appRoutes: Route[] = [
     path: 'users',
     component: UserListComponent
   },
+  { path: 'users/:id', component: UserProfileComponent }, // NEW Dynamic Route
   {
     path: 'new-user',
     component: NewUserComponent
@@ -40,8 +43,8 @@ const appRoutes: Route[] = [
     component: UserSearchComponent
   },
   {
-    path: 'date-time-form',
-    component: DateTimeFormComponent
+    path: 'user-availability-schedule',
+    component: UserAvailabilitySchedulerComponent
   },
   {
     path: '',
@@ -60,12 +63,15 @@ const appRoutes: Route[] = [
     NewUserComponent,
     UserListComponent,
     UserListItemComponent,
+    UserProfileComponent,
     UserSearchComponent,
-    DateTimeFormComponent
+    UserAvailabilitySchedulerComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

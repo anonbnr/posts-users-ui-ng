@@ -1,4 +1,6 @@
 export class User {
+  private static userIdCounter = 1;
+  private _id: number;
   private _firstName: string;
   private _lastName: string;
   private _gender: string;
@@ -15,7 +17,8 @@ export class User {
   private _getsNewsletter: boolean;
   readonly createdAt: Date;
 
-  constructor(firstName: string, lastName: string, gender: string, email: string, password: string, birthday: Date, telephone: string, country: string, bio: string, favoriteNumber: string, favoriteColor: string, avatarImagePath: string, agreementLevel: string, getsNewsletter: boolean){
+  constructor(firstName: string, lastName: string, gender: string, email: string, password: string, birthday: Date, telephone: string, country: string, bio: string, favoriteNumber: string, favoriteColor: string, avatarImagePath: string, agreementLevel: string, getsNewsletter: boolean) {
+    this._id = User.userIdCounter++, // Assign unique ID
     this._firstName = firstName;
     this._lastName = lastName;
     this._gender = gender;
@@ -33,115 +36,117 @@ export class User {
     this.createdAt = new Date();
   }
 
-  get firstName(){
+  get id() { return this._id; }
+
+  get firstName() {
     return this._firstName;
   }
 
-  set firstName(firstName: string){
+  set firstName(firstName: string) {
     this._firstName = firstName;
   }
 
-  get lastName(){
+  get lastName() {
     return this._lastName;
   }
 
-  set lastName(lastName: string){
+  set lastName(lastName: string) {
     this._lastName = lastName;
   }
 
-  get gender(){
+  get gender() {
     return this._gender;
   }
 
-  set gender(gender: string){
+  set gender(gender: string) {
     this._gender = gender;
   }
 
-  get email(){
+  get email() {
     return this._email;
   }
 
-  set email(email: string){
+  set email(email: string) {
     this._email = email;
   }
 
-  get password(){
+  get password() {
     return this._password;
   }
 
-  set password(password: string){
+  set password(password: string) {
     this._password = password;
   }
 
-  get birthday(){
+  get birthday() {
     return this._birthday;
   }
 
-  set birthday(birthday: Date){
+  set birthday(birthday: Date) {
     this._birthday = birthday;
   }
 
-  get telephone(){
+  get telephone() {
     return this._telephone;
   }
 
-  set telephone(telephone: string){
+  set telephone(telephone: string) {
     this._telephone = telephone;
   }
 
-  get country(){
+  get country() {
     return this._country;
   }
 
-  set country(country: string){
+  set country(country: string) {
     this._country = country;
   }
 
-  get bio(){
+  get bio() {
     return this._bio;
   }
 
-  set bio(bio: string){
+  set bio(bio: string) {
     this._bio = bio;
   }
 
-  get favoriteNumber(){
+  get favoriteNumber() {
     return this._favoriteNumber;
   }
 
-  set favoriteNumber(favoriteNumber: string){
+  set favoriteNumber(favoriteNumber: string) {
     this._favoriteNumber = favoriteNumber;
   }
 
-  get favoriteColor(){
+  get favoriteColor() {
     return this._favoriteColor;
   }
 
-  set favoriteColor(favoriteColor: string){
+  set favoriteColor(favoriteColor: string) {
     this._favoriteColor = favoriteColor;
   }
 
-  get avatarImagePath(){
+  get avatarImagePath() {
     return this._avatarImagePath;
   }
 
-  set avatarImagePath(avatarImagePath: string){
+  set avatarImagePath(avatarImagePath: string) {
     this._avatarImagePath = avatarImagePath;
   }
 
-  get agreementLevel(){
+  get agreementLevel() {
     return this._agreementLevel;
   }
 
-  set agreementLevel(agreementLevel: string){
+  set agreementLevel(agreementLevel: string) {
     this._agreementLevel = agreementLevel;
   }
 
-  get getsNewsletter(){
+  get getsNewsletter() {
     return this._getsNewsletter;
   }
 
-  set getsNewsletter(getsNewsletter: boolean){
+  set getsNewsletter(getsNewsletter: boolean) {
     this._getsNewsletter = getsNewsletter;
   }
 }

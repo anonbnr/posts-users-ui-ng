@@ -1,11 +1,11 @@
-<div class="container">
-  <div class="col-xs-12">
-      <h2>Users</h2>
-      <div class="list-group">
-          <app-user-list-item 
-              *ngFor="let user of users"
-              [user]="user">
-          </app-user-list-item>
-      </div>
-  </div>
-</div>
+<mat-card class="user-container">
+    <mat-card-title class="user-list-title">
+        👥 Users List
+    </mat-card-title>
+
+    <mat-divider></mat-divider>
+
+    <div class="user-list">
+        <app-user-list-item *ngFor="let user of users" [user]="user"></app-user-list-item>
+    </div>
+</mat-card>
