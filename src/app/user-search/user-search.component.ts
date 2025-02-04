@@ -47,7 +47,9 @@ export class UserSearchComponent implements OnInit {
     this.searchEntry = this.searchForm.get('userSearch').value;
 
     if (this.searchEntry)
-      this.searchedUsers = this.userService.searchUsersByEmail(this.searchEntry);
+       this.userService.searchUsersByEmail(this.searchEntry).subscribe(searchedUsers => {
+        this.searchedUsers = searchedUsers;
+      });
     else
       this.searchedUsers = [];
   }

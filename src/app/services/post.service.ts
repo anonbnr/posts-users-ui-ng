@@ -1,58 +1,36 @@
-import { Subject } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import { Post } from "../models/post.model";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class PostService {
-
-    posts = [
-        new Post('My First Post', 'Something, something, something, dark side...'),
-        new Post('My Second Post', 'Sometimes yes, but mostly not.'),
-        new Post('Another Post', 'The Good, the Bad, and the what now?')
-    ];
-
+    private apiUrl = 'http://localhost:5000/api/posts';
     postSubject = new Subject<Post[]>();
 
-    emitPosts(){
-        this.postSubject.next(this.posts.slice());
+    constructor(private http: HttpClient) { }
+
+    getPosts(): void {
+        this.http.get<Post[]>(this.apiUrl).subscribe(posts => {
+            this.postSubject.next(posts);
+        });
     }
 
-    addPost(post: Post){
-        this.posts.push(post);
-        this.emitPosts();
+    addPost(postData: { title: string; content: string; authorId: string }): Observable<Post> {
+        return this.http.post<Post>(this.apiUrl, postData);
     }
 
-    removePost(post: Post){
-        const index = this.posts.findIndex(
-            (storedPost) => {
-                if(storedPost === post)
-                    return true;
-            }
-        );
-
-        this.posts.splice(index, 1);
-        this.emitPosts();
+    deletePost(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
-    lovePost(post: Post){
-        const index = this.posts.findIndex(
-            (storedPost) => {
-                if(storedPost === post)
-                    return true;
-            }
-        );
-
-        this.posts[index].loveIts++;
-        this.emitPosts();
+    likePost(id: string): Observable<Post> {
+        return this.http.post<Post>(`${this.apiUrl}/${id}/like`, { });
     }
 
-    dontLovePost(post: Post){
-        const index = this.posts.findIndex(
-            (storedPost) => {
-                if(storedPost === post)
-                    return true;
-            }
-        );
-        
-        this.posts[index].loveIts--;
-        this.emitPosts();
+    dislikePost(id: string): Observable<Post> {
+        return this.http.post<Post>(`${this.apiUrl}/${id}/dislike`, { });
     }
 }

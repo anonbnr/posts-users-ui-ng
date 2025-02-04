@@ -7,12 +7,13 @@ A modern Angular 15 application for managing posts and users, now featuring **An
 ✅ **User Availability Scheduling**: Schedule availability using **Angular Material Datepicker**.  
 ✅ **Enhanced UI with Angular Material**: Fully responsive design.  
 ✅ **Optimized Performance**: Using **Angular 15** features and improved state management.  
-
+✅ **Backend Integration**: Connected to a Node.js + Express API.  
 ---
 
 ## 🚀 Technology Stack
 - **Framework**: Angular 15
 - **UI Components**: Angular Material
+- **Backend**: Node.js + Express (REST API)
 - **State Management**: RxJS Observables
 - **Form Handling**: Reactive Forms (FormBuilder, Validators)
 - **Routing**: Angular Router
@@ -64,10 +65,7 @@ The app will be available at: **http://localhost:4200/**
 
 ## 📢 New Updates
 ### 🔥 Breaking Changes
-- **Upgraded to Angular 15**: Updated `package.json` dependencies.
-- **Migrated to Angular Material**: Enhanced UI with Material components.
-- **Refactored Form Handling**: Now using **Reactive Forms**.
-- **Updated Configuration Files**: `angular.json`, `tsconfig.json`, and `package-lock.json`.
+- **Backend Integration**: Connected with a Node.js + Express REST API.
 
 ---
 

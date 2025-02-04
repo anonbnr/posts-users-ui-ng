@@ -18,8 +18,12 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.user = this.userService.getUserById(id);
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.userService.getUserById(id).subscribe(user => {
+        this.user = user;
+      });
+    }
   }
 
   toggleBio() {

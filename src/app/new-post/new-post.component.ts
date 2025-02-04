@@ -23,20 +23,24 @@ export class NewPostComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.postForm = this.formBuilder.group({
       'title': ['', Validators.required],
       'content': ['', Validators.required]
     });
   }
 
-  onSavePost(){
-    this.postService.addPost(new Post(
-      this.postForm.get('title').value,
-      this.postForm.get('content').value
-    ));
-
-    this.router.navigate(['/posts']);
+  onSavePost() {
+    const postPayload = {
+      title: this.postForm.get('title')?.value,
+      content: this.postForm.get('content')?.value,
+      authorId: "guest"
+    };
+    
+    this.postService.addPost(postPayload).subscribe(() => {
+      this.postService.getPosts();  // Ensure posts are refreshed with correct IDs
+      this.router.navigate(['/posts']);
+    });
   }
 
 }

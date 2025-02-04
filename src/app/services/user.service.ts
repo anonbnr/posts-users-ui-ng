@@ -1,43 +1,52 @@
-import { Subject } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { catchError, Observable, of, Subject } from "rxjs";
 import { User } from "../models/user.model";
 
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
-  users = [
-    new User("John", "Doe", "M", "example@gmail.com", "SomethingSomething", new Date("01/01/1970"), "612345678", "France", "Something, Something, Darkside", "1", "#000000", "somePath/to/an/image", "50", false)
-  ];
-
+  private apiUrl = 'http://localhost:5000/api/users';
   userSubject = new Subject<User[]>();
 
-  emitUsers() {
-    this.userSubject.next(this.users.slice());
+  constructor(private http: HttpClient) { }
+
+  getUsers(): void {
+    this.http.get<User[]>(this.apiUrl).subscribe(users => {
+      this.userSubject.next(users);
+    });
   }
 
-  addUser(user: User) {
-    const newUser = new User(
-      user.firstName,
-      user.lastName,
-      user.gender,
-      user.email,
-      user.password,
-      user.birthday,
-      user.telephone,
-      user.country,
-      user.bio,
-      user.favoriteNumber,
-      user.favoriteColor,
-      user.avatarImagePath,
-      user.agreementLevel,
-      user.getsNewsletter
+  addUser(userData: {
+    firstName: string;
+    lastName: string;
+    gender: string;
+    email: string;
+    password: string;
+    birthday: Date;
+    telephone: string;
+    country: string;
+    bio: string;
+    favoriteNumber: string;
+    favoriteColor: string;
+    avatarImagePath: string;
+    agreementLevel: string;
+    getsNewsletter: boolean
+  }): Observable<User> {
+    return this.http.post<User>(this.apiUrl, userData);
+  }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+
+  searchUsersByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/search?email=${email}`).pipe(
+      catchError((error) => {
+        console.error("Search error:", error);
+        return of([]); // Return an empty array on error
+      })
     );
-    this.users.push(newUser);
-    this.emitUsers();
-  }
-
-  getUserById(id: number): User | undefined {
-    return this.users.find(user => user.id === id);
-  }
-
-  searchUsersByEmail(emailPrefix: string) {
-    return this.users.filter((user: User) => user.email.toLowerCase().startsWith(emailPrefix.toLowerCase()));
   }
 }

@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.usersSubscription = this.userService.userSubject.subscribe(
       (users) => this.users = users
     );
-    this.userService.emitUsers();
+    this.userService.getUsers();
   }
 
   ngOnDestroy(): void {

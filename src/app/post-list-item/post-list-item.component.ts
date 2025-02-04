@@ -1,5 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input } from '@angular/core';
 import { Post } from '../models/post.model';
 import { PostService } from '../services/post.service';
 
@@ -8,35 +7,38 @@ import { PostService } from '../services/post.service';
   templateUrl: './post-list-item.component.html',
   styleUrls: ['./post-list-item.component.css']
 })
-export class PostListItemComponent implements OnInit, OnDestroy {
-
+export class PostListItemComponent {
   @Input() post: Post;
-  postsSubscription: Subscription;
 
-  constructor(private postService: PostService) { 
+  constructor(private postService: PostService) { }
+
+  onLoveIt() {
+    // console.log("Liking post with ID:", this.post.id);
+    if (this.post.id) {
+      this.postService.likePost(this.post.id).subscribe(updatedPost => {
+        this.post.loveIts = updatedPost.loveIts; // Update UI without fetching all posts
+      });
+    } else {
+      console.error("Post ID is missing!");
+    }
   }
 
-  ngOnInit(): void {
-    this.postsSubscription = this.postService.postSubject.subscribe(
-      (posts) => {}
-    );
-
-    this.postService.emitPosts();
+  onNotLoveIt() {
+    // console.log("Disliking post with ID:", this.post.id);
+    if (this.post.id) {
+      this.postService.dislikePost(this.post.id).subscribe(updatedPost => {
+        this.post.loveIts = updatedPost.loveIts; // Update UI without fetching all posts
+      });
+    } else {
+      console.error("Post ID is missing!");
+    }
   }
 
-  ngOnDestroy(): void {
-    this.postsSubscription.unsubscribe();
-  }
-
-  onLoveIt(){
-    this.postService.lovePost(this.post);
-  }
-
-  onNotLoveIt(){
-    this.postService.dontLovePost(this.post);
-  }
-
-  onDelete(){
-    this.postService.removePost(this.post);
+  onDelete() {
+    if (this.post.id) {
+      this.postService.deletePost(this.post.id).subscribe(() => {
+        this.postService.getPosts(); // Only refresh posts when deleting
+      });
+    }
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
-import { UserService } from '../services/user.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-new-user',
@@ -62,16 +62,34 @@ export class NewUserComponent implements OnInit {
       this.userForm.value.newsletter
     );
 
-    this.userService.addUser(newUser);
+    this.userService.addUser(newUser).subscribe({
+      next: (createdUser) => {
+        // console.log("User created successfully!", createdUser);
+        this.userService.getUsers();  // Refresh the user list
 
-    // Navigate to the users page
-    this.router.navigate(['/users']);
+        if (createdUser.id) {
+          this.router.navigate(['/users', createdUser.id]);  // ✅ Navigate using the generated ID
+        } else {
+          console.error("Received user without an ID:", createdUser);
+        }
+
+        // Navigate to the users page
+        // this.router.navigate(['/users']);
+      },
+      error: (err) => console.error("Failed to create user:", err)
+    })
   }
 
   // Handle file selection and preview
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+
+      // const MAX_SIZE_MB = 5;
+      // if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+      //   alert("Image size exceeds 5MB. Please choose a smaller file.");
+      //   return;
+      // }
       const reader = new FileReader();
       reader.onload = () => {
         this.avatarPreview = reader.result as string;
