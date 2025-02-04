@@ -1,6 +1,6 @@
 {
-  "name": "oc-post-project",
-  "version": "1.0.0",
+  "name": "posts-users-ui-ng",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -1,4 +1,4 @@
-# OcPostProject
+# Posts and Users UI (Angular)
 A modern Angular 15 application for managing posts and users, now featuring **Angular Material** for an improved UI experience.
 
 ## 📌 Features
@@ -8,6 +8,7 @@ A modern Angular 15 application for managing posts and users, now featuring **An
 ✅ **Enhanced UI with Angular Material**: Fully responsive design.  
 ✅ **Optimized Performance**: Using **Angular 15** features and improved state management.  
 ✅ **Backend Integration**: Connected to a Node.js + Express API.  
+
 ---
 
 ## 🚀 Technology Stack
