@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-search',
@@ -47,7 +47,7 @@ export class UserSearchComponent implements OnInit {
     this.searchEntry = this.searchForm.get('userSearch').value;
 
     if (this.searchEntry)
-       this.userService.searchUsersByEmail(this.searchEntry).subscribe(searchedUsers => {
+      this.userService.searchUsersByEmail(this.searchEntry).subscribe(searchedUsers => {
         this.searchedUsers = searchedUsers;
       });
     else

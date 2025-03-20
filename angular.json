@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "oc-post-project": {
+    "posts-users-ui-ng": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/oc-post-project",
+            "outputPath": "dist/posts-users-ui-ng",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "oc-post-project:build"
+            "browserTarget": "posts-users-ui-ng:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "oc-post-project:build:production"
+              "browserTarget": "posts-users-ui-ng:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "oc-post-project:build"
+            "browserTarget": "posts-users-ui-ng:build"
           }
         }
       }

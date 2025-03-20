@@ -58,25 +58,19 @@ npm install
 ### 2️⃣ Run the Application
 Start the development server:
 ```sh
-ng serve
+npm start
 ```
 The app will be available at: **http://localhost:4200/**
 
 ---
 
-## 📢 New Updates
-### 🔥 Breaking Changes
-- **Backend Integration**: Connected with a Node.js + Express REST API.
-
----
-
 ## 📜 Available Routes
-| Path | Component | Description |
-|------|----------|-------------|
-| `/posts` | `PostListComponent` | View all posts |
-| `/new-post` | `NewPostComponent` | Create a new post |
-| `/users` | `UserListComponent` | View users list |
-| `/users/:id` | `UserProfileComponent` | View user profile |
-| `/new-user` | `NewUserComponent` | Register a new user |
-| `/user-search` | `UserSearchComponent` | Search for users by email |
+| Path                          | Component                            | Description                |
+| ----------------------------- | ------------------------------------ | -------------------------- |
+| `/posts`                      | `PostListComponent`                  | View all posts             |
+| `/new-post`                   | `NewPostComponent`                   | Create a new post          |
+| `/users`                      | `UserListComponent`                  | View users list            |
+| `/users/:id`                  | `UserProfileComponent`               | View user profile          |
+| `/new-user`                   | `NewUserComponent`                   | Register a new user        |
+| `/user-search`                | `UserSearchComponent`                | Search for users by email  |
 | `/user-availability-schedule` | `UserAvailabilitySchedulerComponent` | Schedule user availability |

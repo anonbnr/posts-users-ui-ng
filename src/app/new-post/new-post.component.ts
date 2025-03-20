@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../models/post.model';
-import { PostService } from '../services/post.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-new-post',
@@ -36,7 +35,7 @@ export class NewPostComponent implements OnInit {
       content: this.postForm.get('content')?.value,
       authorId: "guest"
     };
-    
+
     this.postService.addPost(postPayload).subscribe(() => {
       this.postService.getPosts();  // Ensure posts are refreshed with correct IDs
       this.router.navigate(['/posts']);

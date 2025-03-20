@@ -22,7 +22,7 @@ export class UserAvailabilitySchedulerComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.dateTimeForm = this.formBuilder.group({
       'dateTime': ['', Validators.required],
       'time': ['', Validators.required],
@@ -31,7 +31,7 @@ export class UserAvailabilitySchedulerComponent implements OnInit {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.dateTime = new Date(this.dateTimeForm.get('dateTime').value).toLocaleDateString();
     this.time = this.dateTimeForm.get('time').value;
     this.month = this.dateTimeForm.get('month').value;

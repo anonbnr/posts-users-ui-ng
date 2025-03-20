@@ -72,9 +72,6 @@ export class NewUserComponent implements OnInit {
         } else {
           console.error("Received user without an ID:", createdUser);
         }
-
-        // Navigate to the users page
-        // this.router.navigate(['/users']);
       },
       error: (err) => console.error("Failed to create user:", err)
     })

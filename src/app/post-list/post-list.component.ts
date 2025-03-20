@@ -19,7 +19,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.postsSubscription = this.postService.postSubject.subscribe(posts => {
       this.posts = posts;
     });
-    
+
     this.postService.getPosts();
   }
 
