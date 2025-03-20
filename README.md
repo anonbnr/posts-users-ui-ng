@@ -48,7 +48,7 @@ src/
 
 ---
 
-## 🛠 Installation & Setup
+## ⚙️ Installation & Setup
 ### 1️⃣ Install Dependencies
 Make sure you have **Node.js** installed, then run:
 ```sh
@@ -74,3 +74,15 @@ The app will be available at: **http://localhost:4200/**
 | `/new-user`                   | `NewUserComponent`                   | Register a new user        |
 | `/user-search`                | `UserSearchComponent`                | Search for users by email  |
 | `/user-availability-schedule` | `UserAvailabilitySchedulerComponent` | Schedule user availability |
+
+## 🤝 Contributing
+1. Fork the repository  
+2. Create a new branch (`git checkout -b feature-name`)  
+3. Commit your changes (`git commit -m 'feat: add new feature'`)  
+4. Push to the branch (`git push origin feature-name`)  
+5. Open a Pull Request 🚀  
+
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
